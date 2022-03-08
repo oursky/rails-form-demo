@@ -1,0 +1,36 @@
+<div>
+  <%= form.label :content, 'Content' %>
+  <%= form.text_field :content %>
+  <% if form.object.errors[:content].present? %>
+    <span style="color: red;">
+      <%= form.object.errors.full_messages_for(:content).join('. ') %>
+    </span>
+  <% end %>
+</div>
+<div>
+  <%= form.label :author_name, 'By' %>
+  <%= form.text_field :author_name %>
+  <% if form.object.errors[:author_name].present? %>
+    <span style="color: red;">
+      <%= form.object.errors.full_messages_for(:author_name).join('. ') %>
+    </span>
+  <% end %>
+</div>
+
+<%= form.button type: :submit, value: :add_timeslot do %>
++ Add timeslots
+<% end %>
+
+<div id="timeslots">
+  <% form.object.visible_periods.each_with_index do |visible_period, index| %>
+    <div>
+      <%= form.fields_for :visible_periods, visible_period, child_index: index do |timeslot_form| %>
+        <%= render partial: 'timeslot', locals: { form: timeslot_form, index: index } %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<div>
+  <%= form.submit "Create note" %>
+</div>

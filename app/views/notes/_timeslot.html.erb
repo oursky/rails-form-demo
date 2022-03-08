@@ -1,0 +1,21 @@
+<div style="display: flex; flex-direction: row; align-items: center;">
+  <div>From:</div>
+  <div><%= form.date_field :start_date %></div>
+  <div><%= form.time_field :start_time %></div>
+
+  <div>To:</div>
+  <div><%= form.date_field :end_date %></div>
+  <div><%= form.time_field :end_time %></div>
+
+  <div>
+    <%= form.button type: :submit, value: "delete_timeslot:#{index}" do %>
+    X
+    <% end %>
+  </div>
+
+  <% if form.object.errors.present? %>
+    <div style="color: red; margin-left: 15px;">
+      <%= form.object.errors.full_messages.join('. ') %>
+    </div>
+  <% end %>
+</div>

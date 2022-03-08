@@ -1,0 +1,5 @@
+<%= turbo_stream.replace 'form' do %>
+  <%= form_with(model: @request_params, url: notes_path, method: :post, data: { remote: true }, html: { id: :form }) do |form| %>
+    <%= render partial: 'form', locals: { form: form } %>
+  <% end %>
+<% end %>

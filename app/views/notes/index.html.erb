@@ -1,0 +1,28 @@
+<%= form_with(model: @request_params, url: notes_path, method: :post, data: { remote: true }, html: { id: :form }) do |form| %>
+  <%= render partial: 'form', locals: { form: form } %>
+<% end %>
+
+<div style="margin-top: 15px;">
+  <div>Notes:</div>
+  <ul>
+    <% Note.limit(50).each do |note| %>
+      <li style="color: <%= note.visible? ? :black : :gray %>">
+        <%= note.author.name %>: <%= note.content %>
+        <% if !note.visible? && !note.next_visible_period.nil? %>
+          (will appear at <%= note.next_visible_period.start %>)
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<div style="margin-top: 15px;">
+  <div>Authors:</div>
+  <ul>
+    <% Author.all.each do |author| %>
+      <li>
+        <%= author.name %> (<%= author.notes.size %>)
+      </li>
+    <% end %>
+  </ul>
+</div>
